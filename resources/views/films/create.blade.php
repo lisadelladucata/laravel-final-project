@@ -3,7 +3,7 @@
 @section("title", "Aggiungi un film")
 
 @section ("content")
-<form action="{{ route('films.store') }}" method="POST">
+<form action="{{ route('films.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     
     <div class="form-control mb-3 d-flex flex-column">
@@ -24,6 +24,12 @@
             @endforeach
         </select>
     </div>
+
+    <div class="form-control mb-3 d-flex flex-column flex-wrap gap-2">
+        <label for="image"> Carica un'immagine</label>
+        <input if="image" type="file" name="image" >
+    </div>
+        
 
     <div class="form-control mb-3 d-flex flex-column">
         <label for="description">Contenuto:</label>

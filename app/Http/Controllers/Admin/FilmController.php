@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Film;
 use App\Models\Genre;
+use Illuminate\Support\Facades\Storage;
 
 class FilmController extends Controller
 {
@@ -41,6 +42,12 @@ class FilmController extends Controller
         $newFilm->genre_id = $data['genre_id'];
         $newFilm->description = $data['description'];
 
+        if(array_key_exists('image', $data)) {
+            $img_url = Storage::putFile('films', $data['image']);
+
+            $newFilm->image = $img_url;
+        }
+
         $newFilm->save();
 
         return redirect()->route('films.show', $newFilm); 
@@ -75,6 +82,14 @@ class FilmController extends Controller
         $film->genre_id = $data['genre_id'];
         $film->description = $data['description'];
 
+        if(array_key_exists('image', $data)) {
+            if ($film->image) {
+                Storage::delete($film->image);
+            }
+            $img_url = Storage::putFile('films', $data['image']);
+            $film->image = $img_url;
+        }
+
         $film->update();
 
         return redirect()->route('films.show', $film);
@@ -84,6 +99,10 @@ class FilmController extends Controller
      */
     public function destroy(Film $film)
     {
+        if ($film->image) {
+            Storage::delete($film->image);
+        }
+
         $film->delete();
 
         return redirect()->route('films.index');

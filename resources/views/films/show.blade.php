@@ -13,6 +13,12 @@
         </button>
     </div>
 
+    @if($film->image)
+    <div id="post-image" >
+        <img class="w-50 p-3" src="{{ asset('storage/' . $film->image) }}" alt="copertina" >
+    </div>
+    @endif
+
     <p class="text-muted"><strong>Autore:</strong> {{ $film->author }}</p> 
     <p class="text-muted"><strong>Genere:</strong> {{ $film->genre->name }}</p>
 

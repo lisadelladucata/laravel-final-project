@@ -4,6 +4,13 @@
 
 @section('content')
 <div class="container my-4">
+
+    <div class="mb-4">
+        <a href="{{ route('films.create') }}" class="btn btn-primary">
+            Aggiungi un nuovo film
+        </a>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         @foreach($films as $film)
         <div class="col">
